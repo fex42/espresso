@@ -10,12 +10,18 @@ filter_dia1 = 58.0
 filter_border_w = 6.0
 outer_dia = 74.2
 
+knob_dia = 10.0
+pole_dia = 6.0
+
 height = 60.0
 
 r1 = outer_dia / 2
 r2 = filter_dia1 / 2
 r3 = inner_hole_dia / 2
 filter_border_r = filter_border_w / 2
+
+knob_r = knob_dia / 2
+pole_r = pole_dia / 2
 
 with BuildPart() as body:
     with BuildSketch(Plane.XZ) as body_sk:
@@ -58,35 +64,41 @@ with BuildPart() as cover:
             l6 = Line(l5@1, l1@0)
         make_face()
         with Locations((0, height-4.0)):
-            Circle(4.2, mode=Mode.SUBTRACT)
+            Circle(radius=knob_r + tol/2, mode=Mode.SUBTRACT)
     revolve(axis=Axis.Z)
 
 with BuildPart() as inner:
     with BuildSketch(Plane.XZ) as cover_sk:
         with BuildLine():
-            h = 7.5
+            h = 7
             h2 = height - wt
             cl = Line((0, h), (r1, h), mode=Mode.PRIVATE)
             l1 = Line((0,1.5), (r3-tol, 1.5))
             l2 = Line(l1@1, ((l1@1).X, 4.5 + tol/2))
             l3 = IntersectingLine(l2@1, Vector(0.5, 0.71), cl)
             l3h = PolarLine(l3@1, tol, 90)
-            l4 = Line(l3h@1, (2.5 ,h+3))
+            l4 = Line(l3h@1, (pole_r ,h+4))
             l5 = Line(l4@1, ((l4@1).X, h2))
             l6 = Line(l5@1, (0,h2))
             le = Line(l6@1, l1@0)
         make_face()
     revolve(axis=Axis.Z)
     with Locations((0,0,height-4.2)):
-        Sphere(4.0)
+        Sphere(knob_r)
+    # knob fillet
+    fillet(inner.edges().filter_by_position(Axis.Z, 
+                                           minimum=height-20.0, 
+                                           maximum=height - 6), 
+                                           50.0)
+    # disc fillet
     fillet(inner.edges().filter_by_position(Axis.Z, 
                                            minimum=10.0, 
-                                           maximum=height - 6), 
-                                           23.0)
+                                           maximum=height - 20), 
+                                           10.0)
 
 show(body, cover, inner)
 
-version="-v1"
+version="-v2"
 body.part.export_step("body" + version + ".step")
 cover.part.export_step("cover" + version + ".step")
 inner.part.export_step("inner" + version + ".step")
