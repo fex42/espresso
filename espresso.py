@@ -18,8 +18,8 @@ r3 = inner_hole_dia / 2
 filter_border_r = filter_border_w / 2
 
 with BuildPart() as body:
-    with BuildSketch(Plane.XZ) as sketch2:
-        with BuildLine() as line2:
+    with BuildSketch(Plane.XZ) as body_sk:
+        with BuildLine():
             c1 = Line((r1 - wt, 0), (r1 - wt, height), mode=Mode.PRIVATE) # construction line
             l1 = Line((r3, 0), (r3, 4.5))
             l2 = IntersectingLine(l1@1, Vector(0.5, 0.71), c1)
