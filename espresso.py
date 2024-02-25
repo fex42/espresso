@@ -44,5 +44,20 @@ with BuildPart() as body:
                                            minimum=10.0, 
                                            maximum=40.0), 
                                            30.0)
+    
+with BuildPart() as cover:
+    with BuildSketch(Plane.XZ) as cover_sk:
+        with BuildLine():
+            r = r1 - wt - tol
+            h = height - wt + tol
+            l1 = Line((0,h), (r,h))
+            l2 = Line(l1@1, (r, h+wt))
+            l3 = Line(l2@1, (r1, h+wt))
+            l4 = Line(l3@1, (r1, height+wt))
+            l5 = Line(l4@1, (0, height+wt))
+            l6 = Line(l5@1, l1@0)
+        make_face()
+    revolve(axis=Axis.Z)
 
-show(body)
+
+show(body, cover)
