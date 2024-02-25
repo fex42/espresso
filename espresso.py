@@ -70,20 +70,23 @@ with BuildPart() as inner:
             l1 = Line((0,1.5), (r3-tol, 1.5))
             l2 = Line(l1@1, ((l1@1).X, 4.5 + tol/2))
             l3 = IntersectingLine(l2@1, Vector(0.5, 0.71), cl)
-            l4 = Line(l3@1, (2.5 ,h+3))
+            l3h = PolarLine(l3@1, tol, 90)
+            l4 = Line(l3h@1, (2.5 ,h+3))
             l5 = Line(l4@1, ((l4@1).X, h2))
             l6 = Line(l5@1, (0,h2))
             le = Line(l6@1, l1@0)
         make_face()
     revolve(axis=Axis.Z)
     with Locations((0,0,height-4.2)):
-        Sphere(4.2)
+        Sphere(4.0)
     fillet(inner.edges().filter_by_position(Axis.Z, 
                                            minimum=10.0, 
                                            maximum=height - 6), 
-                                           18.0)
-
-
-
+                                           23.0)
 
 show(body, cover, inner)
+
+version="-v1"
+body.part.export_step("body" + version + ".step")
+cover.part.export_step("cover" + version + ".step")
+inner.part.export_step("inner" + version + ".step")
