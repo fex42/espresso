@@ -6,37 +6,16 @@ wt = 2.0 # wall thickness
 tol = 0.4 # tolerance distance between parts
 
 inner_hole_dia = 48.0
-inner_depth = 1.5
-filter_border_r = 3.0
-
-
-
-
-
-
-
-
-inner_hole_dia = 48.0
 filter_dia1 = 58.0
 filter_border_w = 6.0
 outer_dia = 74.2
 
 height = 60.0
 
-
 r1 = outer_dia / 2
 r2 = filter_dia1 / 2
 r3 = inner_hole_dia / 2
-
-
-
-
-x3 = outer_dia / 2 # depr
-x1 = inner_hole_dia / 2
-y1 = -inner_depth
-x2 = filter_dia1 / 2
-y2 = 0.0
-
+filter_border_r = filter_border_w / 2
 
 with BuildPart() as body:
     with BuildSketch(Plane.XZ) as sketch2:
@@ -65,6 +44,5 @@ with BuildPart() as body:
                                            minimum=10.0, 
                                            maximum=40.0), 
                                            30.0)
-
 
 show(body)
