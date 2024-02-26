@@ -63,8 +63,8 @@ with BuildPart() as cover:
             l5 = Line(l4@1, (0, height+wt))
             l6 = Line(l5@1, l1@0)
         make_face()
-        with Locations((0, height-4.0)):
-            Circle(radius=knob_r + tol/2, mode=Mode.SUBTRACT)
+        with Locations((0, height-4.0-tol/2)):
+            Circle(radius=knob_r, mode=Mode.SUBTRACT)
     revolve(axis=Axis.Z)
 
 with BuildPart() as inner:
@@ -98,7 +98,7 @@ with BuildPart() as inner:
 
 show(body, cover, inner)
 
-version="-v2"
+version="-v2.1"
 body.part.export_step("body" + version + ".step")
 cover.part.export_step("cover" + version + ".step")
 inner.part.export_step("inner" + version + ".step")
