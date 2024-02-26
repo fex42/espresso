@@ -2,6 +2,10 @@ from ocp_vscode import show, show_object, reset_show, set_port, set_defaults, ge
 set_port(3939)
 from build123d import *
 
+#
+# Espresso Shaking and Distrubution Tool
+#
+
 wt = 2.0 # wall thickness
 tol = 0.4 # tolerance distance between parts
 
@@ -102,3 +106,7 @@ version="-v2.1"
 body.part.export_step("body" + version + ".step")
 cover.part.export_step("cover" + version + ".step")
 inner.part.export_step("inner" + version + ".step")
+
+body.part.export_stl("body" + version + ".stl")
+cover.part.export_stl("cover" + version + ".stl")
+inner.part.export_stl("inner" + version + ".stl")
