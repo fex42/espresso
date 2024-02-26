@@ -7,5 +7,5 @@ Lance Hedrick says the Weber Blind Shaker is the best tool for distrubuting espr
 
 https://www.youtube.com/watch?v=5ivwCm95nLc
 
-But it was not worth 80 bucks for me, so I have to do that myself.
+But it was not worth 80 bucks for me, so I have to do that myself using the great [build123d](https://build123d.readthedocs.io/en/latest/index.html) Code CAD system.
 
